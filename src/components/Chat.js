@@ -18,6 +18,7 @@ export const Chat = (props) => {
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
+    console.log("Authentication status (render):", auth.currentUser);
     const queryMessages = query(
       messagesRef,
       where("room", "==", room),
@@ -35,14 +36,20 @@ export const Chat = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Authentication status (handleSubmit):", auth.currentUser);
     if (newMessage === "") return;
-    await addDoc(messagesRef, {
-      text: newMessage,
-      createdAt: serverTimestamp(),
-      user: auth.currentUser.displayName,
-      room: room,
-    });
-    setNewMessage("");
+
+    if (auth.currentUser) {
+      await addDoc(messagesRef, {
+        text: newMessage,
+        createdAt: serverTimestamp(),
+        user: auth.currentUser.displayName,
+        room: room,
+      });
+      setNewMessage("");
+    } else {
+      // You can also display an error message to the user
+    }
   };
 
   return (
