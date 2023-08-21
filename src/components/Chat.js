@@ -1,58 +1,49 @@
-import React, { useState, useEffect } from "react";
-import { db, auth } from "../firebase-config";
+import React, { useEffect, useState } from "react";
 import {
-  collection,
   addDoc,
-  where,
+  collection,
   serverTimestamp,
   onSnapshot,
   query,
-  orderBy,
+  where,
 } from "firebase/firestore";
-
+import { auth, db } from "../firebase-config";
 import "../styles/Chat.css";
 
-export const Chat = ({ room }) => {
-  const [messages, setMessages] = useState([]);
+export const Chat = (props) => {
+  const { room } = props;
   const [newMessage, setNewMessage] = useState("");
+  const [messages, setMessages] = useState([]);
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
-    const queryMessages = query(
-      messagesRef,
-      where("room", "==", room),
-      orderBy("createdAt")
-    );
-    const unsuscribe = onSnapshot(queryMessages, (snapshot) => {
+    const queryMessages = query(messagesRef, where("room", "==", room));
+    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
       let messages = [];
       snapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
-      console.log(messages);
       setMessages(messages);
     });
-
-    return () => unsuscribe();
+    return () => unsubscribe(); // Cleanup the snapshot listener when component unmounts
   }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (newMessage === "") return;
     await addDoc(messagesRef, {
       text: newMessage,
       createdAt: serverTimestamp(),
       user: auth.currentUser.displayName,
-      room,
+      room: room,
     });
-
     setNewMessage("");
   };
 
   return (
     <div className="chat-app">
       <div className="header">
-        <h1>Welcome to: {room.toUpperCase()}</h1>
+        <h1>Welcome to: {room.toUpperCase()} </h1>
       </div>
       <div className="messages">
         {messages.map((message) => (
@@ -63,11 +54,10 @@ export const Chat = ({ room }) => {
       </div>
       <form onSubmit={handleSubmit} className="new-message-form">
         <input
-          type="text"
-          value={newMessage}
-          onChange={(event) => setNewMessage(event.target.value)}
           className="new-message-input"
           placeholder="Type your message here..."
+          value={newMessage}
+          onChange={(event) => setNewMessage(event.target.value)}
         />
         <button type="submit" className="send-button">
           Send
