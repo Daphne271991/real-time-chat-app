@@ -1,8 +1,10 @@
-import { auth, provider } from "../firebase-config.js";
+import React from "react";
 import { signInWithPopup } from "firebase/auth";
 import "../styles/Auth.css";
-
 import Cookies from "universal-cookie";
+import { auth, provider } from "../firebase-config.js";
+import HomeAnimation from "./HomeAnimation"; // Import your HomeAnimation component
+
 const cookies = new Cookies();
 
 export const Auth = (props) => {
@@ -19,10 +21,13 @@ export const Auth = (props) => {
   };
 
   return (
-    <div className="auth">
-      <h1>DAPH CHAT</h1>
-      <p>Sign In with Google To Continue</p>
-      <button onClick={signInWithGoogle}>Sign In with Google</button>
+    <div className="formContainer">
+      <div className="auth-content">
+        <div className="auth">
+          <HomeAnimation /> {/* Add the HomeAnimation component */}
+          <button onClick={signInWithGoogle}>Sign In with Google</button>
+        </div>
+      </div>
     </div>
   );
 };

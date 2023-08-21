@@ -6,6 +6,13 @@
   height: 40vmin;
   pointer-events: none;
 }
+@font-face {
+  font-family: "Coolvetica";
+  src: url("./assets/fonts/CoolveticaRg-Regular.woff2") format("woff2"),
+    url("./assets/fonts/CoolveticaRg-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
