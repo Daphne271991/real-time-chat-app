@@ -1,9 +1,18 @@
+.formContainer {
+  background-color: #a7bcff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .auth {
   text-align: center;
 }
 h1 {
   color: #a7bcff;
-  background-color: purple;
+  font-size: 53px;
+  font-family: "Coolvetica";
+  font-weight: 400;
 }
 
 .auth button {
