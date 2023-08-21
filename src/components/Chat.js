@@ -7,8 +7,9 @@ import {
   query,
   where,
   orderBy,
+  getDocs,
 } from "firebase/firestore";
-import { auth, db } from "../firebase-config";
+import { auth, db, provider } from "../firebase-config"; // Import the provider directly
 import "../styles/Chat.css";
 
 export const Chat = (props) => {
@@ -17,38 +18,93 @@ export const Chat = (props) => {
   const [messages, setMessages] = useState([]);
   const messagesRef = collection(db, "messages");
 
-  useEffect(() => {
-    console.log("Authentication status (render):", auth.currentUser);
-    const queryMessages = query(
-      messagesRef,
-      where("room", "==", room),
-      orderBy("createdAt")
-    );
-    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
-      let messages = [];
-      snapshot.forEach((doc) => {
-        messages.push({ ...doc.data(), id: doc.id });
-      });
+  const loadMessages = async () => {
+    try {
+      const queryMessages = query(
+        messagesRef,
+        where("room", "==", room),
+        orderBy("createdAt")
+      );
+      const snapshot = await getDocs(queryMessages);
+      const messages = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
       setMessages(messages);
-    });
-    return () => unsubscribe(); // Cleanup the snapshot listener when component unmounts
-  }, [messagesRef, room]);
+    } catch (error) {
+      console.error("Error loading messages:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadMessages();
+
+    // Set up real-time listener for new messages
+    const unsubscribe = onSnapshot(
+      query(messagesRef, where("room", "==", room), orderBy("createdAt")),
+      (snapshot) => {
+        const updatedMessages = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setMessages(updatedMessages);
+      }
+    );
+
+    return () => unsubscribe(); // Unsubscribe when component unmounts
+  }, [room]);
+
+  const authenticateWithGoogle = async () => {
+    try {
+      await auth.signInWithPopup(provider);
+      // Now the user is authenticated, you can load messages or perform other actions.
+      loadMessages();
+    } catch (error) {
+      console.error("Error authenticating with Google:", error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Authentication status (handleSubmit):", auth.currentUser);
+
+    if (!auth.currentUser) {
+      authenticateWithGoogle();
+      return;
+    }
+
     if (newMessage === "") return;
 
-    if (auth.currentUser) {
-      await addDoc(messagesRef, {
+    try {
+      await addMessage();
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  const addMessage = async () => {
+    if (newMessage === "") return;
+
+    try {
+      const newMessageDocRef = await addDoc(messagesRef, {
         text: newMessage,
         createdAt: serverTimestamp(),
         user: auth.currentUser.displayName,
         room: room,
       });
+
+      // Update the local messages state with the new message
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: newMessageDocRef.id,
+          text: newMessage,
+          user: auth.currentUser.displayName,
+        },
+      ]);
+
       setNewMessage("");
-    } else {
-      // You can also display an error message to the user
+    } catch (error) {
+      console.error("Error sending message:", error);
     }
   };
 
