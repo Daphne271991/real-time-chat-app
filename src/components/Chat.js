@@ -31,7 +31,7 @@ export const Chat = (props) => {
       setMessages(messages);
     });
     return () => unsubscribe(); // Cleanup the snapshot listener when component unmounts
-  }, []);
+  }, [messagesRef, room]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
