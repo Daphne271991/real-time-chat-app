@@ -68,7 +68,7 @@
   display: flex;
   width: 100%;
   padding: 10px;
-  border: 2px solid #e7966a;
+  border: 2px solid #e87f46;
 }
 
 .new-message-input {
@@ -127,13 +127,14 @@
   /* Adjust user-message and other-user-message max-width */
   .user-message,
   .other-user-message {
-    max-width: 50%;
+    max-width: 70%;
   }
 
   /* Adjust font size for input and send-button */
   .new-message-input,
   .send-button {
     font-size: 14px;
-    height: 20vh;
   }
+
+  /* Add any additional styles for smaller screens here */
 }
