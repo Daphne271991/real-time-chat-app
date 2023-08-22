@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { db, auth } from "../firebase-config";
 import {
-  addDoc,
   collection,
+  addDoc,
+  where,
   serverTimestamp,
   onSnapshot,
   query,
-  where,
   orderBy,
 } from "firebase/firestore";
-import { auth, db } from "../firebase-config"; // Import the provider directly
+
 import "../styles/Chat.css";
 
 export const Chat = ({ room }) => {
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [messages, setMessages] = useState([]); // Use a different name, e.g., `messageList`
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export const Chat = ({ room }) => {
       where("room", "==", room),
       orderBy("createdAt")
     );
-    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
+    const unsuscribe = onSnapshot(queryMessages, (snapshot) => {
       let messages = [];
       snapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
@@ -30,11 +31,13 @@ export const Chat = ({ room }) => {
       console.log(messages);
       setMessages(messages);
     });
-    return () => unsubscribe();
-  }, [room]);
+
+    return () => unsuscribe();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (newMessage === "") return;
     await addDoc(messagesRef, {
       text: newMessage,
@@ -42,6 +45,7 @@ export const Chat = ({ room }) => {
       user: auth.currentUser.displayName,
       room,
     });
+
     setNewMessage("");
   };
 
