@@ -91,3 +91,26 @@
   cursor: pointer;
   margin-right: 10px;
 }
+@media screen and (max-width: 768px) {
+  .chat-app {
+    width: 100%;
+  }
+
+  .header {
+    height: 150px;
+  }
+
+  .messages {
+    height: 50%;
+  }
+
+  .user-message,
+  .other-user-message {
+    max-width: 70%;
+  }
+
+  .new-message-input,
+  .send-button {
+    font-size: 14px;
+  }
+}
