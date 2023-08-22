@@ -21,6 +21,10 @@
   align-items: center;
   height: 200px;
 }
+.header img {
+  max-width: 100%;
+  height: auto;
+}
 .messages {
   display: flex;
   flex-direction: column;

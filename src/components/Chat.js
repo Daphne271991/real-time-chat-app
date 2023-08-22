@@ -7,129 +7,63 @@ import {
   query,
   where,
   orderBy,
-  getDocs,
 } from "firebase/firestore";
-import { auth, db, provider } from "../firebase-config"; // Import the provider directly
+import { auth, db } from "../firebase-config"; // Import the provider directly
 import "../styles/Chat.css";
 
-export const Chat = (props) => {
-  const { room } = props;
+export const Chat = ({ room }) => {
   const [newMessage, setNewMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([]); // Use a different name, e.g., `messageList`
   const messagesRef = collection(db, "messages");
 
-  const loadMessages = async () => {
-    try {
-      const queryMessages = query(
-        messagesRef,
-        where("room", "==", room),
-        orderBy("createdAt")
-      );
-      const snapshot = await getDocs(queryMessages);
-      const messages = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setMessages(messages);
-    } catch (error) {
-      console.error("Error loading messages:", error);
-    }
-  };
-
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      query(messagesRef, where("room", "==", room), orderBy("createdAt")),
-      (snapshot) => {
-        const updatedMessages = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setMessages(updatedMessages);
-      }
+    const queryMessages = query(
+      messagesRef,
+      where("room", "==", room),
+      orderBy("createdAt")
     );
-
-    return () => unsubscribe(); // Unsubscribe when component unmounts
-  }, [room, messagesRef]);
-
-  const authenticateWithGoogle = async () => {
-    try {
-      await auth.signInWithPopup(provider);
-      // Now the user is authenticated, you can load messages or perform other actions.
-      loadMessages();
-    } catch (error) {
-      console.error("Error authenticating with Google:", error);
-    }
-  };
+    const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
+      let messages = [];
+      snapshot.forEach((doc) => {
+        messages.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(messages);
+      setMessages(messages);
+    });
+    return () => unsubscribe();
+  }, [room]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (!auth.currentUser) {
-      authenticateWithGoogle();
-      return;
-    }
-
     if (newMessage === "") return;
-
-    try {
-      await addMessage();
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-  };
-
-  const addMessage = async () => {
-    if (newMessage === "") return;
-
-    try {
-      const newMessageDocRef = await addDoc(messagesRef, {
-        text: newMessage,
-        createdAt: serverTimestamp(),
-        user: auth.currentUser.displayName,
-        room: room,
-      });
-
-      // Update the local messages state with the new message
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: newMessageDocRef.id,
-          text: newMessage,
-          user: auth.currentUser.displayName,
-        },
-      ]);
-
-      setNewMessage("");
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
+    await addDoc(messagesRef, {
+      text: newMessage,
+      createdAt: serverTimestamp(),
+      user: auth.currentUser.displayName,
+      room,
+    });
+    setNewMessage("");
   };
 
   return (
     <div className="chat-app">
       <div className="header">
-        <h1>Welcome to: {room.toUpperCase()} </h1>
+        <h1>Welcome to: {room.toUpperCase()}</h1>
       </div>
       <div className="messages">
         {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`message ${
-              message.user === auth.currentUser.displayName
-                ? "user-message"
-                : "other-user-message"
-            }`}
-          >
+          <div key={message.id} className="message">
             <span className="user">{message.user}:</span> {message.text}
           </div>
         ))}
       </div>
       <form onSubmit={handleSubmit} className="new-message-form">
         <input
-          className="new-message-input"
-          placeholder="Type your message here..."
+          type="text"
           value={newMessage}
           onChange={(event) => setNewMessage(event.target.value)}
+          className="new-message-input"
+          placeholder="Type your message here..."
         />
         <button type="submit" className="send-button">
           Send
