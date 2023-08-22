@@ -37,8 +37,8 @@ export const Chat = (props) => {
   };
 
   useEffect(() => {
+    const loadMessages = async () => {};
     loadMessages();
-
     // Set up real-time listener for new messages
     const unsubscribe = onSnapshot(
       query(messagesRef, where("room", "==", room), orderBy("createdAt")),
