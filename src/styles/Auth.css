@@ -56,3 +56,5 @@ h1 {
   cursor: pointer;
   margin-top: -15px;
 }
+@media screen and (max-width: 768px) {
+}

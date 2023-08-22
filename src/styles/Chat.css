@@ -91,3 +91,20 @@
   cursor: pointer;
   margin-right: 10px;
 }
+@media screen and (max-width: 768px) {
+  .chat-app {
+    width: 100%;
+  }
+  .messages {
+    height: 60%;
+  }
+  .new-message-form {
+    padding: 5px;
+  }
+  .new-message-input {
+    font-size: 14px;
+  }
+  .send-button {
+    font-size: 14px;
+  }
+}

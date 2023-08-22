@@ -21,6 +21,18 @@
   font-weight: 600;
   font-size: 18px;
 }
+@media screen and (max-width: 768px) {
+  .room {
+    height: auto;
+  }
+  .room label {
+    font-size: 16px;
+  }
+}
+
+.App {
+  text-align: center;
+}
 .App {
   text-align: center;
 }
