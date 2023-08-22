@@ -48,8 +48,10 @@ function App() {
       ) : (
         <div className="room">
           <label>Enter Room Name: </label>
-          <input ref={roomInputRef} />{" "}
-          <button onClick={enterChat}>Enter Chat</button>
+          <input ref={roomInputRef} placeholder="Enter Team Name" />{" "}
+          <button className="room-button" onClick={enterChat}>
+            Enter Chat
+          </button>
         </div>
       )}
     </>
