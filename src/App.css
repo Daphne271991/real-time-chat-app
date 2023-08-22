@@ -45,8 +45,13 @@
 }
 .chat-app .header h1 {
   font-size: 54px;
-  margin-top: 95px; /* Adjust font size */
-  /* Add margin to adjust the position from the top */
+  margin-top: 95px;
+}
+
+@media screen and (max-width: 768px) {
+  .chat-app {
+    width: 90%;
+  }
 }
 
 .App {
@@ -97,15 +102,5 @@
   }
   to {
     transform: rotate(360deg);
-  }
-}
-@media screen and (max-width: 768px) {
-  .room {
-    background-image: url("./images/ball.jpg");
-
-    height: 100vh;
-  }
-  .room label {
-    font-size: 16px;
   }
 }
