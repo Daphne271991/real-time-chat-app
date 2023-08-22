@@ -7,14 +7,19 @@
   margin: 0 auto;
   border-radius: 5px;
   overflow: hidden;
-  border: 2px solid #3b5998;
+  border: 2px solid #e87f46;
 }
 .header {
-  background-color: #983b8d;
+  background-image: url("../images/bball.jpg");
+  background-size: cover;
+  background-position: center;
   color: white;
   width: 100%;
   text-align: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  height: 200px;
 }
 .messages {
   display: flex;
@@ -38,12 +43,28 @@
   margin-right: 10px;
   color: #333;
 }
-
+.user-message {
+  background-color: #f6ddd0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-left: auto;
+  margin-right: 10px;
+  align-self: flex-end;
+}
+.other-user-message {
+  background-color: #e87f46;
+  color: rgb(52, 45, 45);
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-right: auto;
+  margin-left: 10px;
+  align-self: flex-start; /* Align other user messages to the left */
+}
 .new-message-form {
   display: flex;
   width: 100%;
   padding: 10px;
-  border: 2px solid #3b5998;
+  border: 2px solid #e87f46;
 }
 
 .new-message-input {
@@ -59,9 +80,10 @@
 
 .send-button {
   border: none;
-  outline: none;
-  background: #3b5998;
+  background-color: #e87f46;
   color: #fff;
-  font-size: 16px;
   font-weight: bold;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 10px;
 }

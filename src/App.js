@@ -20,8 +20,8 @@ function App() {
   };
 
   const enterChat = () => {
-    const enteredRoom = roomInputRef.current.value.toLowerCase(); // Convert to lowercase
-    setRoom(enteredRoom); // Set the room using the lowercase name
+    const enteredRoom = roomInputRef.current.value.toLowerCase();
+    setRoom(enteredRoom);
   };
 
   if (!isAuth) {
@@ -35,7 +35,16 @@ function App() {
   return (
     <>
       {room ? (
-        <Chat room={room} />
+        <>
+          <Chat room={room} />
+
+          {/* Display the "Sign Out" button only inside the chat room */}
+          <div className="sign-out">
+            <button onClick={signUserOut} className="sign-out-button">
+              Sign Out
+            </button>
+          </div>
+        </>
       ) : (
         <div className="room">
           <label>Enter Room Name: </label>
@@ -43,10 +52,6 @@ function App() {
           <button onClick={enterChat}>Enter Chat</button>
         </div>
       )}
-
-      <div className="sign-out">
-        <button onClick={signUserOut}>Sign Out</button>
-      </div>
     </>
   );
 }

@@ -115,7 +115,14 @@ export const Chat = (props) => {
       </div>
       <div className="messages">
         {messages.map((message) => (
-          <div key={message.id} className="message">
+          <div
+            key={message.id}
+            className={`message ${
+              message.user === auth.currentUser.displayName
+                ? "user-message"
+                : "other-user-message"
+            }`}
+          >
             <span className="user">{message.user}:</span> {message.text}
           </div>
         ))}
