@@ -12,7 +12,7 @@
 .header {
   background-image: url("../images/bball.jpg");
   background-size: cover;
-  background-position: center;
+  background-position: center 20%;
   color: white;
   width: 100%;
   text-align: center;
@@ -21,6 +21,7 @@
   align-items: center;
   height: 200px;
 }
+
 .header img {
   max-width: 100%;
   height: auto;
@@ -108,33 +109,4 @@
 .new-message-input,
 .send-button {
   font-size: 14px;
-}
-@media screen and (max-width: 768px) {
-  .chat-app {
-    width: 100%;
-  }
-
-  .header {
-    background-size: 100% auto;
-    background-position: center;
-    height: 150px;
-  }
-
-  .messages {
-    height: 50vh;
-  }
-
-  /* Adjust user-message and other-user-message max-width */
-  .user-message,
-  .other-user-message {
-    max-width: 70%;
-  }
-
-  /* Adjust font size for input and send-button */
-  .new-message-input,
-  .send-button {
-    font-size: 14px;
-  }
-
-  /* Add any additional styles for smaller screens here */
 }

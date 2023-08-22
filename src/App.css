@@ -18,6 +18,36 @@
   font-weight: 600;
   font-size: 18px;
 }
+.chat-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 2px solid #e87f46;
+}
+.chat-app.header {
+  background-image: url("./images/bball.jpg");
+  background-size: cover;
+  background-position: center 20%; /* Adjust background position */
+  color: white;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding-top: 20px;
+}
+.chat-app .header h1 {
+  font-size: 54px;
+  margin-top: 95px; /* Adjust font size */
+  /* Add margin to adjust the position from the top */
+}
 
 .App {
   text-align: center;
@@ -39,17 +69,6 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
