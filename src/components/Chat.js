@@ -36,7 +36,8 @@ export const Chat = ({ room }) => {
   }, [messagesRef, room]);
 
   const isCurrentUserMessage = (message) => {
-    return message.user === auth.currentUser.displayName;
+    const currentUser = auth.currentUser;
+    return currentUser && currentUser.displayName === message.user;
   };
 
   const handleSubmit = async (event) => {

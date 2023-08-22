@@ -82,7 +82,9 @@
 }
 @media screen and (max-width: 768px) {
   .room {
-    height: auto;
+    background-image: url("./images/ball.jpg");
+
+    height: 100vh;
   }
   .room label {
     font-size: 16px;
