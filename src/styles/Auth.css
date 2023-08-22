@@ -1,10 +1,4 @@
-body {
-  margin: 0;
-  background-color: #0154a3;
-}
-
 .formContainer {
-  background-color: #0154a3;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -17,19 +11,18 @@ body {
   background-size: cover;
   background-position: center;
   display: flex;
-  height: 450px;
+  height: 550px;
+  width: 710px;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: 105vh;
+  padding-bottom: 0;
 }
 @media screen and (max-width: 768px) {
   .auth {
-    height: auto;
-    background-size: 100% auto;
-    background-position: center top;
-  }
-  .formContainer {
-    background-color: transparent;
+    height: 100vh;
+    width: 100%;
+    min-height: auto;
   }
 }
 
