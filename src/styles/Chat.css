@@ -114,21 +114,7 @@ body {
 .send-button {
   font-size: 14px;
 }
-footer {
-  background-color: #f8f8f8;
-  padding: 20px;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 
-/* Style the text within the footer */
-footer p {
-  margin: 0;
-  font-size: 14px;
-  color: #666;
-}
 @media screen and (max-width: 768px) {
   /* Adjust the styles for .chat-app */
   .chat-app {
@@ -159,5 +145,8 @@ footer p {
   /* Adjust the styles for .messages */
   .chat-app .messages {
     height: 50vh; /* Adjust the height */
+  }
+  footer {
+    display: none;
   }
 }
