@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+  background-color: transparent;
+}
 .room {
   text-align: center;
   background-image: url("./images/ball.jpg");
