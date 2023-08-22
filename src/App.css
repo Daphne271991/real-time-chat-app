@@ -9,19 +9,14 @@
   flex-direction: column;
   align-items: center;
 }
-@media screen and (max-width: 768px) {
-  .room {
-    height: auto;
-    padding: 20px;
-  }
-  .room label {
-    font-family: "Coolvetica";
-    color: white;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    font-weight: 600;
-    font-size: 18px;
-  }
+
+.room label {
+  font-family: "Coolvetica";
+  color: white;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .App {
@@ -83,5 +78,13 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+@media screen and (max-width: 768px) {
+  .room {
+    height: auto;
+  }
+  .room label {
+    font-size: 16px;
   }
 }

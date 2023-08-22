@@ -91,11 +91,30 @@
   cursor: pointer;
   margin-right: 10px;
 }
+
+.header {
+  height: 150px;
+}
+
+.messages {
+  height: 50%;
+}
+
+.user-message,
+.other-user-message {
+  max-width: 70%;
+}
+
+.new-message-input,
+.send-button {
+  font-size: 14px;
+}
 @media screen and (max-width: 768px) {
   .chat-app {
     width: 100%;
   }
 
+  /* Adjust header and messages styles */
   .header {
     height: 150px;
   }
@@ -104,13 +123,17 @@
     height: 50%;
   }
 
+  /* Adjust user-message and other-user-message max-width */
   .user-message,
   .other-user-message {
     max-width: 70%;
   }
 
+  /* Adjust font size for input and send-button */
   .new-message-input,
   .send-button {
     font-size: 14px;
   }
+
+  /* Add any additional styles for smaller screens here */
 }
