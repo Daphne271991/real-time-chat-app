@@ -10,10 +10,11 @@
   border: 2px solid #3b5998;
 }
 .header {
-  background-color: #3b5998;
+  background-color: #983b8d;
   color: white;
   width: 100%;
   text-align: center;
+  align-items: center;
 }
 .messages {
   display: flex;
@@ -42,6 +43,7 @@
   display: flex;
   width: 100%;
   padding: 10px;
+  border: 2px solid #3b5998;
 }
 
 .new-message-input {

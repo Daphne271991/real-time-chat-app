@@ -19,6 +19,11 @@ function App() {
     setRoom(null);
   };
 
+  const enterChat = () => {
+    const enteredRoom = roomInputRef.current.value.toLowerCase(); // Convert to lowercase
+    setRoom(enteredRoom); // Set the room using the lowercase name
+  };
+
   if (!isAuth) {
     return (
       <div>
@@ -35,9 +40,7 @@ function App() {
         <div className="room">
           <label>Enter Room Name: </label>
           <input ref={roomInputRef} />{" "}
-          <button onClick={() => setRoom(roomInputRef.current.value)}>
-            Enter Chat
-          </button>
+          <button onClick={enterChat}>Enter Chat</button>
         </div>
       )}
 
