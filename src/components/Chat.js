@@ -37,11 +37,14 @@ export const Chat = (props) => {
   };
 
   useEffect(() => {
+    const loadMessages = async () => {};
     loadMessages();
     // Set up real-time listener for new messages
     const unsubscribe = onSnapshot(
       query(messagesRef, where("room", "==", room), orderBy("createdAt")),
       (snapshot) => {
+        console.log("Snapshot received:", snapshot.docs);
+
         const updatedMessages = snapshot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
@@ -51,7 +54,7 @@ export const Chat = (props) => {
     );
 
     return () => unsubscribe(); // Unsubscribe when component unmounts
-  }, [room, messagesRef]);
+  }, [room, loadMessages]);
 
   const authenticateWithGoogle = async () => {
     try {
