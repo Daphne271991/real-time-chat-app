@@ -28,7 +28,11 @@ export const Auth = (props) => {
           <button onClick={signInWithGoogle}>Sign In with Google</button>
           <footer>
             Design and coded by
-            <a href="https://daphnebonilla.com/" target="_blank">
+            <a
+              href="https://daphnebonilla.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <br /> Daphne Bonilla 👩🏽‍💻
             </a>
           </footer>
