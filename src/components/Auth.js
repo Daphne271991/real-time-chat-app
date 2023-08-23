@@ -26,6 +26,12 @@ export const Auth = (props) => {
         <div className="auth">
           <HomeAnimation /> {/* Add the HomeAnimation component */}
           <button onClick={signInWithGoogle}>Sign In with Google</button>
+          <footer>
+            Design and coded by
+            <a href="https://daphnebonilla.com/" target="_blank">
+              <br /> Daphne Bonilla 👩🏽‍💻
+            </a>
+          </footer>
         </div>
       </div>
     </div>

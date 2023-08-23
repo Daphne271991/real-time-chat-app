@@ -52,6 +52,12 @@ function App() {
           <button className="room-button" onClick={enterChat}>
             Enter Chat
           </button>
+          <footer>
+            Design and coded by
+            <a href="https://daphnebonilla.com/" target="_blank">
+              <br /> Daphne Bonilla 👩🏽‍💻
+            </a>
+          </footer>
         </div>
       )}
     </>
