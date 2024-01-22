@@ -16,7 +16,7 @@
 
 .text-animate-hover:hover {
   animation: rubberBand 1s;
-  color: #cc2b32;
+  color: #cc2b33;
 }
 
 .text-animate._1 {
